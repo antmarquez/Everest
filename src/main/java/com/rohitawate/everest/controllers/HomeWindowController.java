@@ -34,6 +34,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -47,6 +51,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomeWindowController implements Initializable {
@@ -223,6 +228,15 @@ public class HomeWindowController implements Initializable {
         tabPane.getTabs().remove(newTab);
         newTab.setOnCloseRequest(null);
         newTab = null;
+        if (tabPane.getTabs().size() == 0) {
+        	Alert alert = new Alert(AlertType.WARNING, "Exit Everest?", ButtonType.OK, ButtonType.CANCEL);
+			Optional<ButtonType> result = alert.showAndWait();
+          	 if (result.isPresent() && result.get() == ButtonType.OK) {
+          		 saveState();
+                Stage thisStage = (Stage) homeWindowSP.getScene().getWindow();
+                thisStage.close();
+          	 	}
+        	}
     }
 
     private void saveState() {

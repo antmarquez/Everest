@@ -82,7 +82,7 @@ public class DashboardController implements Initializable {
     private Label statusCode, statusCodeDescription, responseTime,
             responseSize, errorTitle, errorDetails;
     @FXML
-    private JFXButton cancelButton, copyBodyButton;
+    private JFXButton cancelButton, copyButton;
     @FXML
     TabPane requestOptionsTab, responseTabPane;
     @FXML
@@ -212,6 +212,12 @@ public class DashboardController implements Initializable {
         responseHeadersTab.setContent(responseHeadersViewer);
     }
 
+    @FXML
+    void copyButtonPressed() {
+    	responseArea.selectAll();
+    	responseArea.copy();
+    }
+    
     @FXML
     void sendRequest() {
         if (requestManager != null) {
